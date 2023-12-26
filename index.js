@@ -1,16 +1,28 @@
 const express = require('express');
-var nodemailer = require('nodemailer');
-var bodyParser = require('body-parser');
 const path = require('path');
+var bodyParser = require('body-parser');
 const fs = require('fs');
-var smtpTransport = require('nodemailer-smtp-transport');
-var cors = require('cors');
 const app = express();
+var cors = require('cors');
+const port = 5000;
+
 app.use(bodyParser.json()); // Parse JSON data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(cors());
-const pdfFilePath = path.join(__dirname, 'static', 'Vikas arakhada May 2023-1.pdf');
-const PORT = 3000;
+
+const pdfFilePath = path.join(__dirname, 'static/pdf', 'Vikas arakhada May 2023-1.pdf');
+
+// Set the view engine to Pug
+app.set('view engine', 'ejs');
+
+// Serve static files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'static')));
+
+// Define a route for the homepage
+app.get('/', (req, res) => {
+  // Render the 'index.ejs' template and pass data if needed
+  res.render('index', { pageTitle: 'Welcome to Happy Mirror Research' });
+});
 
 app.get('/downloadpdf', (req, res) => {
   console.log('innn');
@@ -28,10 +40,7 @@ app.get('/downloadpdf', (req, res) => {
   }
 });
 
-app.listen(PORT, (error) => {
-  if (!error)
-    console.log("Server is Successfully Running,and App is listening on port " + PORT)
-  else
-    console.log("Error occurred, server can't start", error);
-}
-);
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
