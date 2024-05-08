@@ -10,7 +10,7 @@ app.use(bodyParser.json()); // Parse JSON data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(cors());
 
-const pdfFilePath = path.join(__dirname, 'static/pdf', 'Vikas arakhada May 2023-1.pdf');
+const pdfFilePath = path.join(__dirname, 'static/pdf', 'Vikas arakhada May 2024.pdf');
 
 // Set the view engine to Pug
 app.set('view engine', 'ejs');
@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
 app.get('/downloadpdf', (req, res) => {
   console.log('innn');
   try {
-    res.setHeader('Content-Disposition', 'attachment; filename="Vikas arakhada May 2023-1.pdf"');
+    // res.setHeader('Content-Disposition', 'attachment; filename="Vikas arakhada May 2023-1.pdf"');
+    res.setHeader('Content-Disposition', 'attachment; filename="Vikas arakhada May 2024.pdf"');
     res.setHeader('Content-Type', 'application/pdf');
 
     // Read the PDF file and stream it to the response
